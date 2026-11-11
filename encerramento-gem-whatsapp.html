@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}</style>
+<title>Encerramento GEM Central NF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: soft blush page, floral and musical-note banner on top, then one rounded card that shows one question at a time (4 steps).
+   Dynamics marks (pp to ff) are the year rating. Teacher's response view sits below, only for the owner/editors. */
+:root {
+  --bg: #FDF6F7;
+  --surface: #FFFFFF;
+  --ink: #3B2A33;
+  --muted: #7A6670;
+  --line: #EBD9DF;
+  --accent: #B04A6E;
+  --accent-ink: #8E3556;
+  --accent-soft: #F9E6EC;
+  --on-accent: #FFFFFF;
+  --leaf: #7C9A82;
+  --petal: #D98BA6;
+  --petal-soft: #FBE3EA;
+  --center: #E5B567;
+  --note: #A5617F;
+  --danger: #B3261E;
+  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1D1519;
+    --surface: #281D23;
+    --ink: #F6EAEE;
+    --muted: #BBA5AF;
+    --line: #45313B;
+    --accent: #E58AAB;
+    --accent-ink: #F2B2C8;
+    --accent-soft: #3F2530;
+    --on-accent: #2E111B;
+    --leaf: #8FB197;
+    --petal: #E59AB5;
+    --petal-soft: #3F2530;
+    --center: #E7BE74;
+    --note: #E3A5BF;
+    --danger: #F2A09B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1D1519;
+  --surface: #281D23;
+  --ink: #F6EAEE;
+  --muted: #BBA5AF;
+  --line: #45313B;
+  --accent: #E58AAB;
+  --accent-ink: #F2B2C8;
+  --accent-soft: #3F2530;
+  --on-accent: #2E111B;
+  --leaf: #8FB197;
+  --petal: #E59AB5;
+  --petal-soft: #3F2530;
+  --center: #E7BE74;
+  --note: #E3A5BF;
+  --danger: #F2A09B;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.55 var(--body);
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 600px; margin: 0 auto; min-width: 0; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Drawing styles (floral and notes) */
+.pt { fill: var(--petal-soft); stroke: var(--petal); stroke-width: 1.1; }
+.pc { fill: var(--center); }
+.lf { fill: var(--leaf); fill-opacity: .28; stroke: var(--leaf); stroke-width: 1; }
+.rib { stroke: var(--leaf); stroke-width: .8; fill: none; }
+.vine { stroke: var(--leaf); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+.nt { fill: var(--note); stroke: var(--note); stroke-width: .6; }
+.ns { stroke: var(--note); stroke-width: 1.3; fill: none; stroke-linecap: round; }
+.beam { stroke-width: 3; }
+
+/* Header */
+.brand { display: flex; align-items: center; gap: 10px; font: 700 .95rem/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 14px; }
+.brand svg { width: 26px; height: 26px; flex: none; }
+h1 { font: 700 clamp(2.3rem, 10.5vw, 3.5rem)/1 var(--display); letter-spacing: -.01em; margin: 0 0 14px; text-wrap: balance; }
+h1 em { font-style: italic; font-weight: 600; color: var(--accent-ink); }
+.lead { color: var(--muted); margin: 0; max-width: 46ch; }
+.banner { display: block; width: 100%; max-width: 380px; height: auto; margin: 22px 0 0; }
+
+/* Card and steps */
+.card { margin-top: 28px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 22px; padding-block: 22px 24px; padding-inline: 18px; }
+.prog { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; color: var(--muted); font-size: .9rem; font-weight: 600; }
+.dots { display: flex; gap: 6px; }
+.dot { width: 22px; height: 22px; opacity: .3; }
+.dot.on { opacity: 1; }
+.step h2 { font: 700 1.75rem/1.12 var(--display); margin: 0 0 8px; text-wrap: balance; }
+.step h3 { font: 700 1.3rem/1.2 var(--display); margin: 28px 0 10px; }
+.hint { color: var(--muted); font-size: .95rem; margin: 0 0 14px; }
+.opt { color: var(--muted); font-weight: 400; }
+.field { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field + .field { margin-top: 22px; }
+.lbl { font-weight: 700; }
+
+input[type="text"], textarea {
+  width: 100%;
+  font: 400 17px/1.45 var(--body);
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+textarea { min-height: 100px; resize: vertical; }
+input[type="text"]::placeholder, textarea::placeholder { color: var(--muted); opacity: .85; }
+input[type="text"]:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.invalid input { border-color: var(--danger); }
+.err-msg { color: var(--danger); font-size: .95rem; font-weight: 700; margin: 6px 0 0; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { position: relative; display: inline-flex; }
+.chip input, .dyn input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.chip span {
+  padding: 11px 16px; border: 1.5px solid var(--line); border-radius: 999px;
+  background: var(--bg); font-size: .98rem; font-weight: 600;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.chip input:checked + span { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent); }
+.chip input:focus-visible + span, .dyn input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Dynamics scale */
+.scale { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.dyn { position: relative; display: block; }
+.dyn span {
+  display: grid; place-items: center; height: 58px;
+  border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg);
+  font: italic 600 1.7rem/1 var(--display); color: var(--ink);
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.dyn input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+#dynDesc { min-height: 1.5em; margin: 10px 0 0; color: var(--accent-ink); font-weight: 700; }
+
+/* Buttons */
+.nav { display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-top: 20px; }
+.nav .ghost[hidden] + .btn { grid-column: 1 / -1; }
+.btn {
+  font: 700 1.05rem/1 var(--body); padding: 17px 22px; border: 0; border-radius: 14px;
+  background: var(--accent); color: var(--on-accent); cursor: pointer; width: 100%;
+}
+.btn:disabled { opacity: .6; cursor: default; }
+.ghost {
+  font: 700 .95rem/1 var(--body); padding: 16px 18px; border-radius: 14px;
+  background: transparent; color: var(--accent-ink); border: 1.5px solid var(--line); cursor: pointer;
+}
+.btn:focus-visible, .ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.status { margin: 14px 0 0; font-weight: 700; min-height: 1.5em; }
+.status.ok { color: var(--accent-ink); }
+.status.err { color: var(--danger); }
+#note { margin: 14px 0 0; }
+#fb { min-height: 150px; }
+#fbWrap { margin-top: 14px; }
+
+/* Thank you */
+.done { text-align: center; display: grid; justify-items: center; gap: 10px; padding-block: 32px; }
+.done .big { width: 64px; height: 64px; }
+.done h2 { font: 700 2rem/1.1 var(--display); margin: 0; }
+.done p { margin: 0; color: var(--muted); max-width: 36ch; }
+.done .ghost { margin-top: 10px; }
+
+/* Teacher view */
+.admin { margin-top: 56px; padding-top: 30px; border-top: 1.5px solid var(--line); display: grid; gap: 24px; }
+.admin h2 { font: 700 1.9rem/1.1 var(--display); margin: 0; }
+.admin h3 { font: 700 1.2rem/1.3 var(--display); margin: 0 0 10px; }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 28px; color: var(--muted); }
+.stats b { color: var(--ink); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.tally { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.trow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; }
+.trow .n { font-variant-numeric: tabular-nums; font-weight: 700; }
+.trow .bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.trow .bar i { display: block; height: 100%; background: var(--accent); }
+.entry { border: 1.5px solid var(--line); border-radius: 16px; padding: 16px; background: var(--surface); display: grid; gap: 8px; min-width: 0; }
+.entry-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.entry-head strong { font: 700 1.25rem/1.2 var(--display); overflow-wrap: anywhere; }
+.entry-head .mk { font: italic 600 1.4rem/1 var(--display); color: var(--accent-ink); margin-left: auto; }
+.entry p { margin: 0; overflow-wrap: anywhere; font-size: .97rem; }
+.entry .k { color: var(--muted); font-size: .85rem; font-weight: 700; }
+.entry .foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.entry .ghost { padding: 10px 14px; font-size: .88rem; }
+.when { color: var(--muted); font-size: .8rem; }
+.list { display: grid; gap: 12px; }
+.admin-tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.admin-tools .ghost { padding: 11px 16px; font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dyn span, .chip span { transition: none; }
+}
+</style>
+
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="flor" viewBox="-20 -20 40 40">
+      <ellipse class="pt" cx="0" cy="-9.5" rx="5.2" ry="9"/>
+      <ellipse class="pt" cx="0" cy="-9.5" rx="5.2" ry="9" transform="rotate(72)"/>
+      <ellipse class="pt" cx="0" cy="-9.5" rx="5.2" ry="9" transform="rotate(144)"/>
+      <ellipse class="pt" cx="0" cy="-9.5" rx="5.2" ry="9" transform="rotate(216)"/>
+      <ellipse class="pt" cx="0" cy="-9.5" rx="5.2" ry="9" transform="rotate(288)"/>
+      <circle class="pc" r="3.2"/>
+    </symbol>
+    <symbol id="folha" viewBox="-1 -9 25 18">
+      <path class="lf" d="M0 0 C 6 -9 17 -9 23 0 C 17 9 6 9 0 0Z"/>
+      <path class="rib" d="M1 0 H 21"/>
+    </symbol>
+    <symbol id="nota" viewBox="-7 -26 24 34">
+      <ellipse class="nt" cx="0" cy="0" rx="4.8" ry="3.5" transform="rotate(-22)"/>
+      <path class="ns" d="M4.4 -1.2 V -22 C 9 -20 12 -15 9.5 -9"/>
+    </symbol>
+    <symbol id="notas" viewBox="-7 -32 40 42">
+      <ellipse class="nt" cx="0" cy="0" rx="4.8" ry="3.5" transform="rotate(-22)"/>
+      <ellipse class="nt" cx="17" cy="-4" rx="4.8" ry="3.5" transform="rotate(-22 17 -4)"/>
+      <path class="ns" d="M4.4 -1.2 V -24 M21.4 -5.2 V -28"/>
+      <path class="ns beam" d="M4.4 -24 L21.4 -28"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header>
+    <p class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#flor"/></svg>GEM Central NF</p>
+    <h1>Última aula de encerramento <em>2026</em></h1>
+    <p class="lead">Nossa última aula do ano vai ter lanche e muito carinho. Conte como você gostaria que ela fosse, o que mais gostou e o que quer aprender em 2027. Leva uns dois minutos.</p>
+    <svg class="banner" viewBox="0 0 360 112" aria-hidden="true" focusable="false">
+      <path class="vine" d="M8 92 C 70 70 112 104 172 74 S 282 44 352 66"/>
+      <g transform="translate(70 80) rotate(-38)"><use href="#folha" x="0" y="-9" width="25" height="18"/></g>
+      <g transform="translate(120 92) rotate(32)"><use href="#folha" x="0" y="-9" width="25" height="18"/></g>
+      <g transform="translate(212 66) rotate(-32)"><use href="#folha" x="0" y="-9" width="25" height="18"/></g>
+      <g transform="translate(252 56) rotate(26)"><use href="#folha" x="0" y="-9" width="25" height="18"/></g>
+      <use href="#flor" x="14" y="62" width="40" height="40"/>
+      <use href="#flor" x="150" y="42" width="46" height="46"/>
+      <use href="#flor" x="300" y="32" width="34" height="34"/>
+      <use href="#nota" x="96" y="12" width="17" height="24"/>
+      <use href="#notas" x="212" y="4" width="34" height="36"/>
+      <use href="#nota" x="268" y="14" width="15" height="22"/>
+    </svg>
+  </header>
+
+  <form id="f" novalidate>
+    <div class="card" id="card">
+      <div class="prog">
+        <span id="progTxt">Passo 1 de 4</span>
+        <span class="dots" id="dots" aria-hidden="true"></span>
+      </div>
+
+      <section class="step" data-step="1">
+        <div class="field" id="nomeField">
+          <h2 id="q1"><label for="nome">Qual é o seu nome?</label></h2>
+          <p class="hint">Assim sabemos quem mandou cada ideia.</p>
+          <input type="text" id="nome" name="nome" autocomplete="given-name" maxlength="80" placeholder="Seu nome">
+          <p class="err-msg" id="nomeErr" hidden>Escreva seu nome para continuar.</p>
+        </div>
+      </section>
+
+      <section class="step" data-step="2" hidden>
+        <h2>Como você gostaria que fosse a nossa última aula?</h2>
+        <p class="hint">Será uma aula com lanche. Toque nas ideias de que você gostou. Pode marcar várias.</p>
+        <div class="chips" id="c-aula"></div>
+        <div class="field">
+          <label class="lbl" for="ideiaAula">Tem outra ideia? <span class="opt">(opcional)</span></label>
+          <textarea id="ideiaAula" name="ideiaAula" maxlength="1200" placeholder="Uma música, uma brincadeira, um jeito de fazer a aula…"></textarea>
+        </div>
+      </section>
+
+      <section class="step" data-step="3" hidden>
+        <h2>Como foi o seu ano?</h2>
+        <p class="hint">Use as marcações de dinâmica: pp foi difícil, ff foi demais.</p>
+        <div class="scale" id="scale" role="radiogroup" aria-label="Como foi o seu ano"></div>
+        <p id="dynDesc" aria-live="polite"></p>
+        <h3>O que você mais gostou nas aulas?</h3>
+        <div class="chips" id="c-gostou"></div>
+      </section>
+
+      <section class="step" data-step="4" hidden>
+        <h2>O que você quer nas aulas de 2027?</h2>
+        <p class="hint">Toque no que você gostaria de ter ou aprender. Pode marcar várias.</p>
+        <div class="chips" id="c-quero"></div>
+        <div class="field">
+          <label class="lbl" for="ideia2027">Quer acrescentar algo? <span class="opt">(opcional)</span></label>
+          <textarea id="ideia2027" name="ideia2027" maxlength="1200" placeholder="Escreva aqui o que você gostaria nas aulas do próximo ano."></textarea>
+        </div>
+      </section>
+
+      <div class="nav">
+        <button class="ghost" id="back" type="button" hidden>Voltar</button>
+        <button class="btn" id="send" type="submit">Continuar</button>
+      </div>
+      <p class="hint" id="note" hidden>Ao tocar no botão, o WhatsApp abre com as suas respostas já escritas. É só tocar em enviar na conversa.</p>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <button class="ghost" id="copyAlt" type="button" hidden>O WhatsApp não abriu? Copiar respostas</button>
+      <div class="field" id="fbWrap" hidden>
+        <label class="lbl" for="fb">Selecione o texto abaixo, copie e envie:</label>
+        <textarea id="fb" readonly></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="card done" id="done" hidden>
+    <svg class="big" viewBox="0 0 40 40" aria-hidden="true"><use href="#flor"/></svg>
+    <h2 id="doneTitle">Obrigada!</h2>
+    <p id="doneMsg"></p>
+    <button class="ghost" type="button" id="edit">Alterar minhas respostas</button>
+  </div>
+
+  <section class="admin" id="admin" hidden aria-labelledby="h-admin">
+    <h2 id="h-admin">Respostas das alunas</h2>
+    <p class="hint" id="adminLoad">Carregando respostas…</p>
+    <div id="adminBody" hidden>
+      <div class="stats" id="stats"></div>
+      <div class="admin-tools"><button class="ghost" type="button" id="copyAll">Copiar resumo</button></div>
+      <div id="tallies" style="display:grid;gap:26px;margin-top:24px"></div>
+      <h3 style="margin-top:30px">Resposta por resposta</h3>
+      <div class="list" id="entries"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var DYN = [
+    { v: 1, m: 'pp', t: 'Foi bem fraquinho' },
+    { v: 2, m: 'p', t: 'Podia ter sido melhor' },
+    { v: 3, m: 'mf', t: 'Foi bom' },
+    { v: 4, m: 'f', t: 'Foi muito bom' },
+    { v: 5, m: 'ff', t: 'Foi demais!' }
+  ];
+  var GROUPS = {
+    aula: {
+      short: 'Ideias para a última aula',
+      opts: ['Lanche coletivo', 'Apresentações das alunas ao órgão', 'Jogos e brincadeiras musicais', 'Bingo musical', 'Roda de música em grupo', 'Mural de recados', 'Foto da turma']
+    },
+    gostou: {
+      short: 'O que mais gostaram',
+      opts: ['Teoria musical', 'Solfejo', 'Ditado musical', 'Ritmo e divisão', 'Prática no órgão', 'Repertório estudado', 'Convivência com a turma', 'Material didático']
+    },
+    quero: {
+      short: 'O que querem em 2027',
+      opts: ['Escalas e tonalidades', 'Leitura à primeira vista', 'Ditado musical', 'Ritmo e compassos', 'Harmonia', 'Técnica do órgão', 'Repertório novo', 'Prática em conjunto', 'Revisões antes das avaliações', 'Aulas em duplas ou grupos', 'Jogos e desafios musicais', 'Aulas de reforço']
+    }
+  };
+  var GKEYS = ['aula', 'gostou', 'quero'];
+  var COLL = 'sugestoes';
+  var TOTAL = 4;
+  var WA = '5522997114668';
+
+  var $ = function (id) { return document.getElementById(id); };
+  function h(tag, props) {
+    var el = document.createElement(tag);
+    var p = props || {};
+    Object.keys(p).forEach(function (k) {
+      var v = p[k];
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else el.setAttribute(k, v);
+    });
+    for (var i = 2; i < arguments.length; i++) {
+      [].concat(arguments[i]).forEach(function (kid) {
+        if (kid == null || kid === false) return;
+        el.append(kid.nodeType ? kid : document.createTextNode(kid));
+      });
+    }
+    return el;
+  }
+
+  /* ---------- Build chips, scale and dots ---------- */
+  GKEYS.forEach(function (key) {
+    var box = $('c-' + key);
+    GROUPS[key].opts.forEach(function (o) {
+      box.append(h('label', { class: 'chip' },
+        h('input', { type: 'checkbox', name: key, value: o }),
+        h('span', { text: o })
+      ));
+    });
+  });
+  var scale = $('scale');
+  DYN.forEach(function (d) {
+    scale.append(h('label', { class: 'dyn' },
+      h('input', { type: 'radio', name: 'nota', value: String(d.v), 'aria-label': d.m + ': ' + d.t }),
+      h('span', { text: d.m })
+    ));
+  });
+  scale.addEventListener('change', function () {
+    var c = scale.querySelector('input:checked');
+    var d = c && DYN.filter(function (x) { return String(x.v) === c.value; })[0];
+    $('dynDesc').textContent = d ? d.t : '';
+  });
+  var dots = $('dots');
+  for (var i = 0; i < TOTAL; i++) {
+    dots.insertAdjacentHTML('beforeend', '<svg class="dot" viewBox="0 0 40 40"><use href="#flor"/></svg>');
+  }
+
+  /* ---------- Form state ---------- */
+  var form = $('f');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  function dynMark(n) {
+    var d = DYN.filter(function (x) { return x.v === n; })[0];
+    return d ? d.m : '';
+  }
+  function join(a) { return (a && a.length) ? a.join(', ') : ''; }
+  function collect() {
+    var d = {
+      nome: $('nome').value.trim(),
+      ideiaAula: $('ideiaAula').value.trim(),
+      nota: null,
+      ideia2027: $('ideia2027').value.trim(),
+      enviadoEm: new Date().toISOString()
+    };
+    var r = form.querySelector('input[name="nota"]:checked');
+    if (r) d.nota = Number(r.value);
+    GKEYS.forEach(function (k) {
+      d[k] = Array.prototype.map.call(form.querySelectorAll('input[name="' + k + '"]:checked'), function (x) { return x.value; });
+    });
+    return d;
+  }
+  function fill(d) {
+    $('nome').value = d.nome || '';
+    $('ideiaAula').value = d.ideiaAula || '';
+    $('ideia2027').value = d.ideia2027 || '';
+    Array.prototype.forEach.call(form.querySelectorAll('input[name="nota"]'), function (x) { x.checked = Number(x.value) === d.nota; });
+    GKEYS.forEach(function (k) {
+      var chosen = d[k] || [];
+      Array.prototype.forEach.call(form.querySelectorAll('input[name="' + k + '"]'), function (x) { x.checked = chosen.indexOf(x.value) !== -1; });
+    });
+    scale.dispatchEvent(new Event('change'));
+  }
+  function answerText(d) {
+    var L = ['Última aula de encerramento 2026 · GEM Central NF', 'Nome: ' + d.nome];
+    if (d.aula && d.aula.length) L.push('Ideias para a última aula: ' + join(d.aula));
+    if (d.ideiaAula) L.push('Outra ideia para a aula: ' + d.ideiaAula);
+    if (d.nota) L.push('Como foi o ano: ' + dynMark(d.nota) + ' (' + d.nota + ' de 5)');
+    if (d.gostou && d.gostou.length) L.push('O que mais gostou: ' + join(d.gostou));
+    if (d.quero && d.quero.length) L.push('O que quer em 2027: ' + join(d.quero));
+    if (d.ideia2027) L.push('Mais para 2027: ' + d.ideia2027);
+    return L.join('\n');
+  }
+
+  /* ---------- Steps ---------- */
+  var step = 1, db = null, user = null, uid = null, canSend = false, sentOnce = false;
+  var btn = $('send'), statusEl = $('status');
+  function finalLabel() {
+    if (!canSend) return 'Enviar pelo WhatsApp';
+    return sentOnce ? 'Atualizar minhas respostas' : 'Enviar minhas respostas';
+  }
+  function show(n, scroll) {
+    step = n;
+    steps.forEach(function (s) { s.hidden = Number(s.getAttribute('data-step')) !== n; });
+    $('back').hidden = n === 1;
+    btn.textContent = n < TOTAL ? 'Continuar' : finalLabel();
+    $('progTxt').textContent = 'Passo ' + n + ' de ' + TOTAL;
+    Array.prototype.forEach.call(dots.children, function (d, idx) { d.setAttribute('class', 'dot' + (idx < n ? ' on' : '')); });
+    $('note').hidden = !(n === TOTAL && !canSend);
+    setStatus('');
+    if (scroll) $('card').scrollIntoView({ block: 'start' });
+  }
+  $('back').addEventListener('click', function () { if (step > 1) show(step - 1, true); });
+  $('nome').addEventListener('input', function () {
+    $('nomeField').classList.remove('invalid');
+    $('nomeErr').hidden = true;
+  });
+
+  function setStatus(msg, kind) {
+    statusEl.textContent = msg || '';
+    statusEl.className = 'status' + (kind ? ' ' + kind : '');
+  }
+  async function copyText(t) {
+    try {
+      await navigator.clipboard.writeText(t);
+      return true;
+    } catch (e) {
+      $('fbWrap').hidden = false;
+      var fb = $('fb');
+      fb.value = t;
+      fb.focus();
+      fb.select();
+      return false;
+    }
+  }
+  function showDone(title, msg) {
+    $('doneTitle').textContent = title;
+    $('doneMsg').textContent = msg;
+    form.hidden = true;
+    $('done').hidden = false;
+    $('done').scrollIntoView({ block: 'center' });
+  }
+  $('edit').addEventListener('click', function () {
+    $('done').hidden = true;
+    form.hidden = false;
+    show(1, true);
+  });
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (step === 1 && !$('nome').value.trim()) {
+      $('nomeField').classList.add('invalid');
+      $('nomeErr').hidden = false;
+      $('nome').focus();
+      return;
+    }
+    if (step < TOTAL) { show(step + 1, true); return; }
+    var d = collect();
+    if (!d.nome) { show(1, true); $('nomeField').classList.add('invalid'); $('nomeErr').hidden = false; return; }
+    btn.disabled = true;
+    setStatus('');
+    if (canSend) {
+      try {
+        await db.collection(COLL).doc(uid).set(d);
+        sentOnce = true;
+        showDone('Obrigada, ' + d.nome + '!', 'Suas respostas foram enviadas. Nos vemos na última aula de 2026.');
+      } catch (err) {
+        var copied = await copyText(answerText(d));
+        setStatus('Não deu para enviar agora. ' + (copied ? 'Copiei suas respostas: mande para quem organiza a aula.' : 'Copie o texto abaixo e mande para quem organiza a aula.'), 'err');
+      }
+    } else {
+      setStatus('Abrindo o WhatsApp. Toque em enviar na conversa.', 'ok');
+      $('copyAlt').hidden = false;
+      window.location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(answerText(d));
+    }
+    btn.disabled = false;
+  });
+
+  $('copyAlt').addEventListener('click', async function () {
+    var ok = await copyText(answerText(collect()));
+    setStatus(ok ? 'Respostas copiadas. Cole no WhatsApp e envie.' : 'Copie o texto abaixo e envie pelo WhatsApp.', ok ? 'ok' : 'err');
+  });
+
+  /* ---------- Runtime ---------- */
+  async function init() {
+    try {
+      if (window.claude && window.claude.use) {
+        var res = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+        db = res[0];
+        user = res[1];
+      }
+    } catch (e) { db = null; user = null; }
+    if (user) { try { uid = await user.id(); } catch (e) { uid = null; } }
+    canSend = !!(db && uid);
+    show(step);
+    if (canSend) {
+      try {
+        var s = await db.collection(COLL).doc(uid).get();
+        if (s.exists && !$('nome').value.trim()) {
+          var data = s.data();
+          fill(data);
+          sentOnce = true;
+          show(1);
+          showDone('Obrigada, ' + (data.nome || '') + '!', 'Você já enviou suas respostas. Se quiser mudar alguma coisa, é só tocar abaixo.');
+        }
+      } catch (e) { /* first visit or no access: keep the empty form */ }
+    }
+    var admin = false;
+    if (user && db) { try { admin = await user.canEdit(); } catch (e) { admin = false; } }
+    if (admin) startAdmin();
+  }
+
+  /* ---------- Teacher view ---------- */
+  var rows = [];
+  function tallyOf(key) {
+    var map = {};
+    rows.forEach(function (r) { (r[key] || []).forEach(function (o) { map[o] = (map[o] || 0) + 1; }); });
+    return Object.keys(map).map(function (o) { return { o: o, n: map[o] }; }).sort(function (a, b) { return b.n - a.n || a.o.localeCompare(b.o, 'pt-BR'); });
+  }
+  function avg() {
+    var v = rows.map(function (r) { return r.nota; }).filter(function (n) { return typeof n === 'number'; });
+    if (!v.length) return null;
+    return { m: v.reduce(function (a, b) { return a + b; }, 0) / v.length, n: v.length };
+  }
+  function fmtWhen(iso) {
+    try { return new Date(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; }
+  }
+  function summaryText() {
+    var a = avg();
+    var L = ['Última aula de encerramento 2026 · GEM Central NF', rows.length + ' respostas'];
+    if (a) L.push('Média do ano: ' + a.m.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' de 5');
+    GKEYS.forEach(function (k) {
+      var t = tallyOf(k);
+      if (!t.length) return;
+      L.push('', GROUPS[k].short);
+      t.forEach(function (x) { L.push('- ' + x.o + ' (' + x.n + ')'); });
+    });
+    [['ideiaAula', 'Outras ideias para a última aula'], ['ideia2027', 'Mais para 2027']].forEach(function (p) {
+      var items = rows.filter(function (r) { return r[p[0]]; });
+      if (!items.length) return;
+      L.push('', p[1]);
+      items.forEach(function (r) { L.push('- ' + r.nome + ': ' + r[p[0]]); });
+    });
+    return L.join('\n');
+  }
+  function renderAdmin() {
+    var a = avg();
+    var stats = $('stats');
+    stats.textContent = '';
+    stats.append(
+      h('span', {}, h('b', { text: String(rows.length) }), rows.length === 1 ? ' resposta' : ' respostas'),
+      a ? h('span', {}, 'Média do ano ', h('b', { text: a.m.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) }), ' de 5') : null
+    );
+    var tallies = $('tallies');
+    tallies.textContent = '';
+    GKEYS.forEach(function (k) {
+      var t = tallyOf(k);
+      if (!t.length) return;
+      var ul = h('ul', { class: 'tally' });
+      t.forEach(function (x) {
+        ul.append(h('li', { class: 'trow' },
+          h('span', { text: x.o }),
+          h('span', { class: 'n', text: String(x.n) }),
+          h('span', { class: 'bar' }, h('i', { style: 'width:' + Math.round(x.n / rows.length * 100) + '%' }))
+        ));
+      });
+      tallies.append(h('div', {}, h('h3', { text: GROUPS[k].short }), ul));
+    });
+    var list = $('entries');
+    list.textContent = '';
+    if (!rows.length) {
+      list.append(h('p', { class: 'hint', text: 'Ainda não chegou nenhuma resposta. Elas aparecem aqui assim que as alunas enviarem.' }));
+      return;
+    }
+    rows.forEach(function (r) {
+      var del = h('button', { class: 'ghost', type: 'button', text: 'Remover' });
+      var armed = false;
+      del.addEventListener('click', async function () {
+        if (!armed) { armed = true; del.textContent = 'Confirmar remoção'; return; }
+        try { await db.collection(COLL).doc(r._id).delete(); } catch (e) { del.textContent = 'Não foi possível remover'; }
+      });
+      var body = [];
+      GKEYS.forEach(function (k) {
+        if (r[k] && r[k].length) body.push(h('p', {}, h('span', { class: 'k', text: GROUPS[k].short + ': ' }), join(r[k])));
+      });
+      [['ideiaAula', 'Outra ideia para a aula'], ['ideia2027', 'Mais para 2027']].forEach(function (p) {
+        if (r[p[0]]) body.push(h('p', {}, h('span', { class: 'k', text: p[1] + ': ' }), r[p[0]]));
+      });
+      list.append(h('article', { class: 'entry' },
+        h('div', { class: 'entry-head' },
+          h('strong', { text: r.nome || 'Sem nome' }),
+          r.nota ? h('span', { class: 'mk', text: dynMark(r.nota) }) : null
+        ),
+        body,
+        h('div', { class: 'foot' }, h('span', { class: 'when', text: fmtWhen(r.enviadoEm) }), del)
+      ));
+    });
+  }
+  function startAdmin() {
+    $('admin').hidden = false;
+    var timer = setTimeout(function () {
+      $('adminLoad').textContent = 'As respostas ainda não carregaram. Verifique a conexão e aguarde um pouco.';
+    }, 10000);
+    $('copyAll').addEventListener('click', async function () {
+      var ok = await copyText(summaryText());
+      $('copyAll').textContent = ok ? 'Resumo copiado' : 'Copie o texto do campo que abriu no formulário';
+    });
+    db.collection(COLL).onSnapshot(function (snap) {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      rows = snap.docs.map(function (d) { var x = Object.assign({}, d.data()); x._id = d.id; return x; })
+        .sort(function (a, b) { return String(b.enviadoEm || '').localeCompare(String(a.enviadoEm || '')); });
+      $('adminLoad').hidden = true;
+      $('adminBody').hidden = false;
+      renderAdmin();
+    }, function () {
+      clearTimeout(timer);
+      $('adminLoad').textContent = 'Não foi possível carregar as respostas agora.';
+    });
+  }
+
+  show(1);
+  init();
+})();
+</script>
+
+</body>
+</html>
